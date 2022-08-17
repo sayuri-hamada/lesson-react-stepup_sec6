@@ -1,6 +1,9 @@
-import React, { useContext, memo } from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
-import { UserContext } from "../../../providers/UserProvider";
+// import { UserContext } from "../../../providers/UserProvider";
+//stateの値のみをrecoilから呼び出す時に使用
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../store/userState";
 
 //memo化して再レンダリングを防ぐ
 export const UserIconWithName = memo((props) => {
@@ -8,7 +11,8 @@ export const UserIconWithName = memo((props) => {
   const { image, name } = props;
 
   //useContextを使って定義したstateを利用する
-  const { userInfo } = useContext(UserContext);
+  // const { userInfo } = useContext(UserContext);
+  const userInfo = useRecoilValue(userState);
   const isAdmin = userInfo ? userInfo.isAdmin : false;
   return (
     <SContainer>
